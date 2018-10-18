@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
 {
-    public Vector2 size;
+    public new string name = "New Level";
+    public Vector2 size = Vector2.one * 13f;
+
     public GameObject nodePrefab;
-    
+
     public void GenerateGrid()
     {
         if (size.x % 2 == 0)
