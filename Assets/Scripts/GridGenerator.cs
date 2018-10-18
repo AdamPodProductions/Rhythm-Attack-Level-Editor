@@ -5,14 +5,8 @@ using UnityEngine;
 public class GridGenerator : MonoBehaviour
 {
     public Vector2 size;
-
     public GameObject nodePrefab;
-
-    private void Start()
-    {
-        GenerateGrid();
-    }
-
+    
     public void GenerateGrid()
     {
         if (size.x % 2 == 0)
