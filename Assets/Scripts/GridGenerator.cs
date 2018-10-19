@@ -30,10 +30,13 @@ public class GridGenerator : MonoBehaviour
             {
                 Transform generatedNode = Instantiate(nodePrefab, GetPositionFromGrid(new Vector2(x, y)), Quaternion.identity).transform;
                 generatedNode.parent = transform;
+
+                generatedNode.GetComponent<Node>().bulletStats = new BulletStats("None", new Vector2(x, y), Vector2.zero);
             }
         }
 
         Camera.main.orthographicSize = 0.635f * ((size.x > size.y) ? size.x : size.y);
+        Camera.main.transform.position = new Vector3(0.1f * size.x + 2f, 0, -10f);
     }
 
     public Vector2 GetPositionFromGrid(Vector2 positionOnGrid)

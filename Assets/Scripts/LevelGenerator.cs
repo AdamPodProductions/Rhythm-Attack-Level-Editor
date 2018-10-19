@@ -12,12 +12,13 @@ public class LevelGenerator : MonoBehaviour
     public Text sizeYText;
     public InputField pathText;
     public Text bpmText;
+    public Text framesText;
 
     private GridGenerator gridGenerator;
 
     private void Start()
     {
-        gridGenerator = GetComponent<GridGenerator>();
+        gridGenerator = FindObjectOfType<GridGenerator>();
     }
 
     public void CreateLevel()
@@ -25,7 +26,7 @@ public class LevelGenerator : MonoBehaviour
         WWW www = new WWW("file://" + pathText.text);
         AudioClip song = www.GetAudioClip();
 
-        level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text));
+        level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text), int.Parse(framesText.text));
         gridGenerator.GenerateGrid(level.size);
     }
 }
@@ -37,17 +38,19 @@ public class Level
     public Vector2 size = Vector2.one * 13f;
     public AudioClip song;
     public int bpm;
+    public int amountOfFrames;
 
     public Level()
     {
 
     }
 
-    public Level(string name, Vector2 size, AudioClip song, int bpm)
+    public Level(string name, Vector2 size, AudioClip song, int bpm, int amountOfFrames)
     {
         this.name = name;
         this.size = size;
         this.song = song;
         this.bpm = bpm;
+        this.amountOfFrames = amountOfFrames;
     }
 }
