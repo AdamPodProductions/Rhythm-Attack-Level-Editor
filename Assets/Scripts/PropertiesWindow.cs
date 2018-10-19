@@ -31,7 +31,7 @@ public class PropertiesWindow : MonoBehaviour
 
         node = newNode;
         bulletStats = newNode.bulletStats;
-        
+
         newNode.ToggleSelectOverlay(true);
 
         positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
