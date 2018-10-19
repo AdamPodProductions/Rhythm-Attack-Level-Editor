@@ -6,6 +6,9 @@ public class GridGenerator : MonoBehaviour
 {
     public GameObject nodePrefab;
 
+    private int xHalf;
+    private int yHalf;
+
     public void GenerateGrid(Vector2 size)
     {
         if (size.x % 2 == 0)
@@ -18,18 +21,23 @@ public class GridGenerator : MonoBehaviour
             size.y++;
         }
 
-        int xHalf = Mathf.FloorToInt(size.x / 2f);
-        int yHalf = Mathf.FloorToInt(size.y / 2f);
+        xHalf = Mathf.FloorToInt(size.x / 2f);
+        yHalf = Mathf.FloorToInt(size.y / 2f);
 
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.y; y++)
             {
-                Transform generatedNode = Instantiate(nodePrefab, new Vector2(x - xHalf, y - yHalf), Quaternion.identity).transform;
+                Transform generatedNode = Instantiate(nodePrefab, GetPositionFromGrid(new Vector2(x, y)), Quaternion.identity).transform;
                 generatedNode.parent = transform;
             }
         }
 
         Camera.main.orthographicSize = 0.635f * ((size.x > size.y) ? size.x : size.y);
+    }
+
+    public Vector2 GetPositionFromGrid(Vector2 positionOnGrid)
+    {
+        return positionOnGrid - new Vector2(xHalf, yHalf);
     }
 }
