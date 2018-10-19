@@ -2131,7 +2131,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Path:'
+  m_Text: 'Song Path:'
 --- !u!222 &1509570457
 CanvasRenderer:
   m_ObjectHideFlags: 0
