@@ -44,12 +44,6 @@ public class Node : MonoBehaviour
         {
             directionArrow.SetActive(true);
 
-            /*
-            Vector3 dir = new Vector3(bulletStats.direction.x, bulletStats.direction.y, 0) + transform.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            */
-
             int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;
             directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
