@@ -9,6 +9,7 @@ public class FrameWindow : MonoBehaviour
 
     public Text levelTitleText;
     public Text frameNumberText;
+    public InputField saveInput;
 
     private LevelGenerator levelGenerator;
 
@@ -24,5 +25,11 @@ public class FrameWindow : MonoBehaviour
     {
         levelTitleText.text = LevelGenerator.instance.level.name;
         frameNumberText.text = "Frame #" + levelGenerator.currentFrameIndex + "/" + levelGenerator.level.amountOfFrames;
+    }
+
+    public void Save()
+    {
+        Level level = levelGenerator.level;
+        JSON.SaveLevel(level, saveInput.text );
     }
 }
