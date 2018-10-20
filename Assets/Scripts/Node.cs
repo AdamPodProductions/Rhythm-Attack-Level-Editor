@@ -19,10 +19,10 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
-        ShowBulletStats();
+        ShowPropertiesOnWindow();
     }
 
-    private void ShowBulletStats()
+    private void ShowPropertiesOnWindow()
     {
         PropertiesWindow.instance.ShowProperties(this);
     }
@@ -31,9 +31,16 @@ public class Node : MonoBehaviour
     {
         if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
         {
-            level.RemoveBulletFromCurrentFrame(bulletStats);
+            level.RemoveBulletFromCurrentFrame(this, bulletStats);
         }
 
+        ShowPropertiesOnSelf(newProperties);
+
+        level.AddBulletToCurrentFrame(this, newProperties);
+    }
+
+    public void ShowPropertiesOnSelf(BulletStats newProperties)
+    {
         bulletStats = newProperties;
 
         for (int i = 1; i < bulletOverlays.Length; i++)
@@ -59,15 +66,13 @@ public class Node : MonoBehaviour
             int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;
             directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
-        level.AddBulletToCurrentFrame(bulletStats);
     }
 
     public void ClearProperties(bool updateFrame)
     {
         if (level.GetCurrentFrame().bullets.Contains(new BulletStats()) && updateFrame)
         {
-            level.RemoveBulletFromCurrentFrame(bulletStats);
+            level.RemoveBulletFromCurrentFrame(this, bulletStats);
         }
 
         bulletStats = BulletStats.BlankBulletStats(bulletStats.position);
@@ -98,7 +103,7 @@ public class Node : MonoBehaviour
 
         if (updateFrame)
         {
-            level.AddBulletToCurrentFrame(bulletStats);
+            level.AddBulletToCurrentFrame(this, bulletStats);
         }
     }
 

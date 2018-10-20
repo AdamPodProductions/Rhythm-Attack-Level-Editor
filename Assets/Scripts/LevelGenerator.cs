@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public static LevelGenerator instance;
 
     public Level level;
-    public int currentFrame = 0;
+    public int currentFrameIndex = 0;
 
     public Text nameText;
     public Text sizeXText;
@@ -17,9 +17,9 @@ public class LevelGenerator : MonoBehaviour
     public Text bpmText;
     public Text framesText;
 
-    private GridGenerator gridGenerator;
+    public Node[] nodes;
 
-    private Node[] nodes;
+    private GridGenerator gridGenerator;
 
     private void OnEnable()
     {
@@ -51,33 +51,29 @@ public class LevelGenerator : MonoBehaviour
                 node.ClearProperties(false);
             }
 
-            currentFrame = newFrameIndex;
+            currentFrameIndex = newFrameIndex;
 
-            for (int i = 0; i < nodes.Length; i++)
+            if (level.GetCurrentFrame().bullets.Count > 0)
             {
-                Node currentNode = nodes[i];
-                for (int j = 0; j < level.frames[currentFrame].bullets.Count; j++)
+                for (int i = 0; i < level.frames[currentFrameIndex].bullets.Count; i++)
                 {
-                    BulletStats currentStats = level.GetCurrentFrame().bullets[j];
-                    if (currentNode.bulletStats.position == currentStats.position)
-                    {
-                        currentNode.ApplyProperties(level.frames[currentFrame].bullets[j]);
-                    }
+                    Frame currentFrame = level.frames[currentFrameIndex];
+                    currentFrame.nodes[i].ShowPropertiesOnSelf(currentFrame.bullets[i]);
                 }
             }
         }
 
-        FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrame + 1) + "/" + level.frames.Length;
+        FrameWindow.instance.frameNumberText.text = "Frame #" + currentFrameIndex + "/" + level.frames.Length;
     }
 
     public void FrameUp()
     {
-        ChangeFrame(currentFrame + 1);
+        ChangeFrame(currentFrameIndex + 1);
     }
 
     public void FrameDown()
     {
-        ChangeFrame(currentFrame - 1);
+        ChangeFrame(currentFrameIndex - 1);
     }
 }
 
@@ -114,16 +110,18 @@ public class Level
 
     public Frame GetCurrentFrame()
     {
-        return frames[LevelGenerator.instance.currentFrame];
+        return frames[LevelGenerator.instance.currentFrameIndex];
     }
 
-    public void AddBulletToCurrentFrame(BulletStats bullet)
+    public void AddBulletToCurrentFrame(Node node, BulletStats bullet)
     {
-        frames[LevelGenerator.instance.currentFrame].bullets.Add(bullet);
+        frames[LevelGenerator.instance.currentFrameIndex].nodes.Add(node);
+        frames[LevelGenerator.instance.currentFrameIndex].bullets.Add(bullet);
     }
 
-    public void RemoveBulletFromCurrentFrame(BulletStats bullet)
+    public void RemoveBulletFromCurrentFrame(Node node, BulletStats bullet)
     {
-        frames[LevelGenerator.instance.currentFrame].bullets.Remove(bullet);
+        frames[LevelGenerator.instance.currentFrameIndex].nodes.Remove(node);
+        frames[LevelGenerator.instance.currentFrameIndex].bullets.Remove(bullet);
     }
 }

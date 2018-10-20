@@ -23,6 +23,6 @@ public class FrameWindow : MonoBehaviour
     public void Setup()
     {
         levelTitleText.text = LevelGenerator.instance.level.name;
-        frameNumberText.text = "Frame #" + (levelGenerator.currentFrame + 1) + "/" + levelGenerator.level.amountOfFrames;
+        frameNumberText.text = "Frame #" + levelGenerator.currentFrameIndex + "/" + levelGenerator.level.amountOfFrames;
     }
 }
