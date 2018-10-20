@@ -12,7 +12,6 @@ public class PropertiesWindow : MonoBehaviour
     public Dropdown directionDropdown;
 
     [HideInInspector] public Node node;
-    //private BulletStats bulletStats;
 
     private void OnEnable()
     {
@@ -28,7 +27,7 @@ public class PropertiesWindow : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        if (/*bulletStats*/ node != null)
+        if (node != null)
         {
             BulletStats bulletStats = node.bulletStats;
             positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
