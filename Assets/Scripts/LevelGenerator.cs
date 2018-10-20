@@ -67,7 +67,7 @@ public class LevelGenerator : MonoBehaviour
 
         propertiesWindow.ShowProperties(propertiesWindow.node);
 
-        FrameWindow.instance.frameNumberText.text = "Frame #" + currentFrameIndex + "/" + level.frames.Length;
+        FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrameIndex + 1) + "/" + level.frames.Length;
     }
 
     public void FrameUp()

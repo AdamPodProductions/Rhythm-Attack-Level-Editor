@@ -33,14 +33,20 @@ public class PropertiesWindow : MonoBehaviour
             node.ToggleSelectOverlay(false);
         }
 
-        node = newNode;
-        bulletStats = newNode.bulletStats;
+        if (newNode != null)
+        {
+            node = newNode;
+            bulletStats = newNode.bulletStats;
 
-        newNode.ToggleSelectOverlay(true);
+            newNode.ToggleSelectOverlay(true);
+        }
 
-        positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
-        bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
-        directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
+        if (bulletStats != null)
+        {
+            positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
+            bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
+            directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
+        }
     }
 
     public void ApplyProperties()
