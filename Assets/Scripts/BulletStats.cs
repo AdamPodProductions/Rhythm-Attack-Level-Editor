@@ -20,4 +20,9 @@ public class BulletStats
         this.position = position;
         this.direction = direction;
     }
+
+    public static BulletStats BlankBulletStats(Vector2 position)
+    {
+        return new BulletStats("None", position, Vector2.zero);
+    }
 }

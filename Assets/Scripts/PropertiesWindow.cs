@@ -44,6 +44,11 @@ public class PropertiesWindow : MonoBehaviour
         bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
         node.ApplyProperties(bulletStats);
     }
+
+    public void ClearProperties(bool updateFrame)
+    {
+        node.ClearProperties(updateFrame);
+    }
 }
 
 public static class Extension

@@ -63,6 +63,45 @@ public class Node : MonoBehaviour
         level.AddBulletToCurrentFrame(bulletStats);
     }
 
+    public void ClearProperties(bool updateFrame)
+    {
+        if (level.GetCurrentFrame().bullets.Contains(new BulletStats()) && updateFrame)
+        {
+            level.RemoveBulletFromCurrentFrame(bulletStats);
+        }
+
+        bulletStats = BulletStats.BlankBulletStats(bulletStats.position);
+
+        for (int i = 1; i < bulletOverlays.Length; i++)
+        {
+            if (i.DropdownIndexToBulletType() == bulletStats.bulletType)
+            {
+                bulletOverlays[i].SetActive(true);
+            }
+            else
+            {
+                bulletOverlays[i].SetActive(false);
+            }
+        }
+
+        if (bulletStats.bulletType == "None" || bulletStats.direction == Vector2.zero)
+        {
+            directionArrow.SetActive(false);
+        }
+        else
+        {
+            directionArrow.SetActive(true);
+
+            int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;
+            directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        if (updateFrame)
+        {
+            level.AddBulletToCurrentFrame(bulletStats);
+        }
+    }
+
     public void ToggleSelectOverlay(bool toggle)
     {
         selectOverlay.SetActive(toggle);
