@@ -75,31 +75,7 @@ public class Node : MonoBehaviour
             level.RemoveBulletFromCurrentFrame(this, bulletStats);
         }
 
-        bulletStats = BulletStats.BlankBulletStats(bulletStats.position);
-
-        for (int i = 1; i < bulletOverlays.Length; i++)
-        {
-            if (i.DropdownIndexToBulletType() == bulletStats.bulletType)
-            {
-                bulletOverlays[i].SetActive(true);
-            }
-            else
-            {
-                bulletOverlays[i].SetActive(false);
-            }
-        }
-
-        if (bulletStats.bulletType == "None" || bulletStats.direction == Vector2.zero)
-        {
-            directionArrow.SetActive(false);
-        }
-        else
-        {
-            directionArrow.SetActive(true);
-
-            int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;
-            directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
+        ShowPropertiesOnSelf(BulletStats.BlankBulletStats(bulletStats.position));
 
         if (updateFrame)
         {

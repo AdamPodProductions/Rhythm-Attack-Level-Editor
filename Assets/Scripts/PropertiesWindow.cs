@@ -11,12 +11,16 @@ public class PropertiesWindow : MonoBehaviour
     public Dropdown bulletTypeDropdown;
     public Dropdown directionDropdown;
 
-    private Node node;
+    [HideInInspector] public Node node;
     private BulletStats bulletStats;
+
+    private void OnEnable()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
-        instance = this;
         gameObject.SetActive(false);
     }
 
@@ -41,13 +45,11 @@ public class PropertiesWindow : MonoBehaviour
 
     public void ApplyProperties()
     {
-        bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
-        node.ApplyProperties(bulletStats);
-    }
-
-    public void ClearProperties(bool updateFrame)
-    {
-        node.ClearProperties(updateFrame);
+        if (node != null)
+        {
+            bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
+            node.ApplyProperties(bulletStats);
+        }
     }
 }
 
