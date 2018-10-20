@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    public BulletStats bulletStats;
+    public BulletStats bulletStats = new BulletStats();
 
     public GameObject selectOverlay;
     public GameObject directionArrow;
     public GameObject[] bulletOverlays;
+
+    private Level level;
+
+    private void Start()
+    {
+        level = LevelGenerator.instance.level;
+    }
 
     private void OnMouseDown()
     {
@@ -22,6 +29,11 @@ public class Node : MonoBehaviour
 
     public void ApplyProperties(BulletStats newProperties)
     {
+        if (level.GetCurrentFrame().bullets.Contains(bulletStats))
+        {
+            level.RemoveBulletFromCurrentFrame(bulletStats);
+        }
+
         bulletStats = newProperties;
 
         for (int i = 1; i < bulletOverlays.Length; i++)
@@ -42,6 +54,8 @@ public class Node : MonoBehaviour
         }
         else
         {
+            level.AddBulletToCurrentFrame(bulletStats);
+
             directionArrow.SetActive(true);
 
             int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;

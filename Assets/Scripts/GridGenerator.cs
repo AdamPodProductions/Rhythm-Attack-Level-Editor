@@ -30,15 +30,11 @@ public class GridGenerator : MonoBehaviour
             {
                 Transform generatedNode = Instantiate(nodePrefab, GetPositionFromGrid(new Vector2(x, y)), Quaternion.identity).transform;
                 generatedNode.parent = transform;
+                generatedNode.GetComponent<Node>().bulletStats = new BulletStats("None", new Vector2(x, y), Vector2.zero);
 
                 if (x >= xHalf - 1 && x <= xHalf + 1 && y >= yHalf - 1 && y <= yHalf + 1 && size.x > 3 && size.y > 3)
                 {
-                    Destroy(generatedNode.GetComponent<Node>());
                     generatedNode.GetComponent<SpriteRenderer>().color = Color.black;
-                }
-                else
-                {
-                    generatedNode.GetComponent<Node>().bulletStats = new BulletStats("None", new Vector2(x, y), Vector2.zero);
                 }
             }
         }

@@ -44,6 +44,8 @@ public class PropertiesWindow : MonoBehaviour
         bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), directionDropdown.value.DropdownIndexToDirection());
 
         node.ApplyProperties(bulletStats);
+
+        JSON.SaveLevel(LevelGenerator.instance.level, Application.persistentDataPath);
     }
 }
 

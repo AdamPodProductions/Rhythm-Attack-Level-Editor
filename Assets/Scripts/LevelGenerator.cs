@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class LevelGenerator : MonoBehaviour
 {
+    public static LevelGenerator instance;
+
     public Level level;
+    public int currentFrame = 0;
 
     public Text nameText;
     public Text sizeXText;
@@ -15,6 +18,11 @@ public class LevelGenerator : MonoBehaviour
     public Text framesText;
 
     private GridGenerator gridGenerator;
+
+    private void OnEnable()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -40,6 +48,8 @@ public class Level
     public int bpm;
     public int amountOfFrames;
 
+    public Frame[] frames = new Frame[0];
+
     public Level()
     {
 
@@ -52,5 +62,22 @@ public class Level
         this.song = song;
         this.bpm = bpm;
         this.amountOfFrames = amountOfFrames;
+
+        frames = new Frame[amountOfFrames];
+    }
+
+    public Frame GetCurrentFrame()
+    {
+        return frames[LevelGenerator.instance.currentFrame];
+    }
+
+    public void AddBulletToCurrentFrame(BulletStats bullet)
+    {
+        frames[LevelGenerator.instance.currentFrame].bullets.Add(bullet);
+    }
+
+    public void RemoveBulletFromCurrentFrame(BulletStats bullet)
+    {
+        frames[LevelGenerator.instance.currentFrame].bullets.Remove(bullet);
     }
 }
