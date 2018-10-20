@@ -19,6 +19,8 @@ public class LevelGenerator : MonoBehaviour
 
     private GridGenerator gridGenerator;
 
+    private Node[] nodes;
+
     private void OnEnable()
     {
         instance = this;
@@ -36,6 +38,46 @@ public class LevelGenerator : MonoBehaviour
 
         level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text), int.Parse(framesText.text));
         gridGenerator.GenerateGrid(level.size);
+
+        nodes = FindObjectsOfType<Node>();
+    }
+
+    public void ChangeFrame(int newFrameIndex)
+    {
+        if (newFrameIndex >= 0 && newFrameIndex < level.frames.Length)
+        {
+            foreach (Node node in nodes)
+            {
+                node.ClearProperties(false);
+            }
+
+            currentFrame = newFrameIndex;
+
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                Node currentNode = nodes[i];
+                for (int j = 0; j < level.frames[currentFrame].bullets.Count; j++)
+                {
+                    BulletStats currentStats = level.GetCurrentFrame().bullets[j];
+                    if (currentNode.bulletStats.position == currentStats.position)
+                    {
+                        currentNode.ApplyProperties(level.frames[currentFrame].bullets[j]);
+                    }
+                }
+            }
+        }
+
+        FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrame + 1) + "/" + level.frames.Length;
+    }
+
+    public void FrameUp()
+    {
+        ChangeFrame(currentFrame + 1);
+    }
+
+    public void FrameDown()
+    {
+        ChangeFrame(currentFrame - 1);
     }
 }
 
