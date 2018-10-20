@@ -6,4 +6,9 @@ using UnityEngine;
 public class Frame
 {
     public List<BulletStats> bullets = new List<BulletStats>();
+
+    public Frame()
+    {
+
+    }
 }

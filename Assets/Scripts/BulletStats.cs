@@ -20,10 +20,4 @@ public class BulletStats
         this.position = position;
         this.direction = direction;
     }
-
-    public BulletStats(string bulletType, Vector2 direction)
-    {
-        this.bulletType = bulletType;
-        this.direction = direction;
-    }
 }

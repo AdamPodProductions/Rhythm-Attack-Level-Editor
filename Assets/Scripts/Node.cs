@@ -29,7 +29,7 @@ public class Node : MonoBehaviour
 
     public void ApplyProperties(BulletStats newProperties)
     {
-        if (level.GetCurrentFrame().bullets.Contains(bulletStats))
+        if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
         {
             level.RemoveBulletFromCurrentFrame(bulletStats);
         }
@@ -48,19 +48,19 @@ public class Node : MonoBehaviour
             }
         }
 
-        if (bulletStats.bulletType == "None" && bulletStats.direction == Vector2.zero)
+        if (bulletStats.bulletType == "None" || bulletStats.direction == Vector2.zero)
         {
             directionArrow.SetActive(false);
         }
         else
         {
-            level.AddBulletToCurrentFrame(bulletStats);
-
             directionArrow.SetActive(true);
 
             int angle = (bulletStats.direction.DirectionToDropdownIndex() - 1) * -45;
             directionArrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+
+        level.AddBulletToCurrentFrame(bulletStats);
     }
 
     public void ToggleSelectOverlay(bool toggle)

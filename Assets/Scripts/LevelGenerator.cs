@@ -64,6 +64,10 @@ public class Level
         this.amountOfFrames = amountOfFrames;
 
         frames = new Frame[amountOfFrames];
+        for (int i = 0; i < frames.Length; i++)
+        {
+            frames[i] = new Frame();
+        }
     }
 
     public Frame GetCurrentFrame()
