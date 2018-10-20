@@ -24,7 +24,7 @@ public class Node : MonoBehaviour
 
     private void ShowPropertiesOnWindow()
     {
-        PropertiesWindow.instance.ShowProperties(this);
+        PropertiesWindow.instance.SelectNode(this);
     }
 
     public void ApplyProperties(BulletStats newProperties)

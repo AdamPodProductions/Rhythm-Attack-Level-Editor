@@ -12,7 +12,7 @@ public class PropertiesWindow : MonoBehaviour
     public Dropdown directionDropdown;
 
     [HideInInspector] public Node node;
-    private BulletStats bulletStats;
+    //private BulletStats bulletStats;
 
     private void OnEnable()
     {
@@ -24,36 +24,37 @@ public class PropertiesWindow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void ShowProperties(Node newNode)
+    private void ShowProperties()
     {
         gameObject.SetActive(true);
 
-        if (node != null)
+        if (/*bulletStats*/ node != null)
         {
-            node.ToggleSelectOverlay(false);
-        }
-
-        if (newNode != null)
-        {
-            node = newNode;
-            bulletStats = newNode.bulletStats;
-
-            newNode.ToggleSelectOverlay(true);
-        }
-
-        if (bulletStats != null)
-        {
+            BulletStats bulletStats = node.bulletStats;
             positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
             bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
             directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
         }
     }
 
+    public void SelectNode(Node newNode)
+    {
+        if (node != null)
+        {
+            node.ToggleSelectOverlay(false);
+        }
+
+        node = newNode;
+        node.ToggleSelectOverlay(true);
+
+        ShowProperties();
+    }
+
     public void ApplyProperties()
     {
         if (node != null)
         {
-            bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
+            BulletStats bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), node.bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
             node.ApplyProperties(bulletStats);
         }
     }
