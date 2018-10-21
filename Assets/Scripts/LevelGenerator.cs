@@ -13,6 +13,7 @@ public class LevelGenerator : MonoBehaviour
     public Text nameText;
     public Text sizeXText;
     public Text sizeYText;
+    public Toggle customSongToggle;
     public InputField pathText;
     public Text bpmText;
     public Text framesText;
@@ -35,10 +36,19 @@ public class LevelGenerator : MonoBehaviour
 
     public void CreateLevel()
     {
-        WWW www = new WWW("file://" + pathText.text);
-        AudioClip song = www.GetAudioClip();
+        AudioClip song = null;
 
-        level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text), int.Parse(framesText.text));
+        if (customSongToggle.isOn)
+        {
+            WWW www = new WWW("file://" + pathText.text);
+            song = www.GetAudioClip();
+
+            level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text), int.Parse(framesText.text));
+        } else
+        {
+            level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), int.Parse(framesText.text));
+        }
+
         gridGenerator.GenerateGrid(level.size);
 
         nodes = FindObjectsOfType<Node>();
@@ -64,8 +74,6 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-
-        //propertiesWindow.SelectNode(propertiesWindow.node);
 
         FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrameIndex + 1) + "/" + level.frames.Length;
     }
@@ -103,6 +111,19 @@ public class Level
         this.size = size;
         this.song = song;
         this.bpm = bpm;
+        this.amountOfFrames = amountOfFrames;
+
+        frames = new Frame[amountOfFrames];
+        for (int i = 0; i < frames.Length; i++)
+        {
+            frames[i] = new Frame();
+        }
+    }
+
+    public Level(string name, Vector2 size, int amountOfFrames)
+    {
+        this.name = name;
+        this.size = size;
         this.amountOfFrames = amountOfFrames;
 
         frames = new Frame[amountOfFrames];
