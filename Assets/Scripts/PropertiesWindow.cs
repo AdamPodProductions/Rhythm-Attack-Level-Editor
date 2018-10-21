@@ -13,6 +13,10 @@ public class PropertiesWindow : MonoBehaviour
 
     [HideInInspector] public Node node;
 
+    private string mode = "Select";
+    private string selectedBulletType = "None";
+    private string selectedDirection = "None";
+
     private void OnEnable()
     {
         instance = this;
@@ -31,8 +35,8 @@ public class PropertiesWindow : MonoBehaviour
         {
             BulletStats bulletStats = node.bulletStats;
             positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
-            bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
-            directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
+            //bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
+            //directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
         }
     }
 
@@ -47,14 +51,44 @@ public class PropertiesWindow : MonoBehaviour
         node.ToggleSelectOverlay(true);
 
         ShowProperties();
+
+        if (mode == "Add")
+        {
+            ApplyProperties();
+        }
+        else if (mode == "Remove")
+        {
+            node.ClearProperties(true);
+        }
     }
 
     public void ApplyProperties()
     {
         if (node != null)
         {
-            BulletStats bulletStats = new BulletStats(bulletTypeDropdown.value.DropdownIndexToBulletType(), node.bulletStats.position, directionDropdown.value.DropdownIndexToDirection());
+            BulletStats bulletStats = new BulletStats(selectedBulletType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
             node.ApplyProperties(bulletStats);
+        }
+    }
+
+    public void SelectMode(string mode)
+    {
+        this.mode = mode;
+    }
+
+    public void SelectBulletType(string bulletType)
+    {
+        selectedBulletType = bulletType;
+    }
+
+    public void SetDirection(string direction)
+    {
+        selectedDirection = direction;
+
+        if (node != null)
+        {
+            node.bulletStats.direction = direction.DirectionStringToVector();
+            node.ShowPropertiesOnSelf(node.bulletStats);
         }
     }
 }
@@ -181,6 +215,50 @@ public static class Extension
             return Vector2.left;
         }
         else if (index == 8)
+        {
+            return new Vector2(-1, 1);
+        }
+        else
+        {
+            return Vector2.positiveInfinity;
+        }
+    }
+
+    public static Vector2 DirectionStringToVector(this string directionString)
+    {
+        if (directionString == "None")
+        {
+            return Vector2.zero;
+        }
+        else if (directionString == "Up")
+        {
+            return Vector2.up;
+        }
+        else if (directionString == "Up-Right")
+        {
+            return Vector2.one;
+        }
+        else if (directionString == "Right")
+        {
+            return Vector2.right;
+        }
+        else if (directionString == "Down-Right")
+        {
+            return new Vector2(1, -1);
+        }
+        else if (directionString == "Down")
+        {
+            return Vector2.down;
+        }
+        else if (directionString == "Down-Left")
+        {
+            return Vector2.one * -1;
+        }
+        else if (directionString == "Left")
+        {
+            return Vector2.left;
+        }
+        else if (directionString == "Up-Left")
         {
             return new Vector2(-1, 1);
         }

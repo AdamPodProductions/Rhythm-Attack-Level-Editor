@@ -65,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        propertiesWindow.SelectNode(propertiesWindow.node);
+        //propertiesWindow.SelectNode(propertiesWindow.node);
 
         FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrameIndex + 1) + "/" + level.frames.Length;
     }
