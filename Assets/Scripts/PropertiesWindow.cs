@@ -8,8 +8,10 @@ public class PropertiesWindow : MonoBehaviour
     public static PropertiesWindow instance;
 
     public Text positionText;
-    public Dropdown bulletTypeDropdown;
-    public Dropdown directionDropdown;
+
+    public Image[] modeButtons;
+    public Image[] bulletTypeButtons;
+    public Image[] directionButtons;
 
     [HideInInspector] public Node node;
 
@@ -35,8 +37,30 @@ public class PropertiesWindow : MonoBehaviour
         {
             BulletStats bulletStats = node.bulletStats;
             positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
-            //bulletTypeDropdown.value = bulletStats.bulletType.BulletTypeToDropdownIndex();
-            //directionDropdown.value = bulletStats.direction.DirectionToDropdownIndex();
+
+            for (int i = 0; i < bulletTypeButtons.Length; i++)
+            {
+                if (i == bulletStats.bulletType.BulletTypeToDropdownIndex() && bulletStats.bulletType != "None")
+                {
+                    bulletTypeButtons[i].color = Color.white * 0.9f;
+                }
+                else
+                {
+                    bulletTypeButtons[i].color = Color.white;
+                }
+            }
+
+            for (int i = 0; i < directionButtons.Length; i++)
+            {
+                if (i == bulletStats.direction.DirectionToDropdownIndex())
+                {
+                    directionButtons[i].color = Color.white * 0.9f;
+                }
+                else
+                {
+                    directionButtons[i].color = Color.white;
+                }
+            }
         }
     }
 
@@ -50,9 +74,7 @@ public class PropertiesWindow : MonoBehaviour
         node = newNode;
         node.ToggleSelectOverlay(true);
 
-        ShowProperties();
-
-        if (mode == "Add")
+        if (mode == "Draw")
         {
             ApplyProperties();
         }
@@ -60,6 +82,8 @@ public class PropertiesWindow : MonoBehaviour
         {
             node.ClearProperties(true);
         }
+
+        ShowProperties();
     }
 
     public void ApplyProperties()
@@ -68,28 +92,53 @@ public class PropertiesWindow : MonoBehaviour
         {
             BulletStats bulletStats = new BulletStats(selectedBulletType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
             node.ApplyProperties(bulletStats);
+
+            ShowProperties();
         }
     }
 
     public void SelectMode(string mode)
     {
         this.mode = mode;
+
+        int modeIndex = (mode == "Select") ? 0 : (mode == "Draw") ? 1 : 2;
+        for (int i = 0; i < modeButtons.Length; i++)
+        {
+            if (i == modeIndex)
+            {
+                modeButtons[i].color = Color.white * 0.9f;
+            }
+            else
+            {
+                modeButtons[i].color = Color.white;
+            }
+        }
     }
 
     public void SelectBulletType(string bulletType)
     {
         selectedBulletType = bulletType;
+
+        if (node != null && mode == "Draw")
+        {
+            node.bulletStats.bulletType = bulletType;
+            node.ShowPropertiesOnSelf(node.bulletStats);
+        }
+
+        ShowProperties();
     }
 
     public void SetDirection(string direction)
     {
         selectedDirection = direction;
 
-        if (node != null)
+        if (node != null && mode == "Draw")
         {
             node.bulletStats.direction = direction.DirectionStringToVector();
             node.ShowPropertiesOnSelf(node.bulletStats);
         }
+
+        ShowProperties();
     }
 }
 
@@ -97,17 +146,29 @@ public static class Extension
 {
     public static int BulletTypeToDropdownIndex(this string bulletType)
     {
-        if (bulletType == "None")
+        if (bulletType == "Red")
         {
             return 0;
         }
-        else if (bulletType == "Red")
+        else if (bulletType == "Green")
         {
             return 1;
         }
-        else if (bulletType == "Blue")
+        else if (bulletType == "Yellow")
         {
             return 2;
+        }
+        else if (bulletType == "Orange")
+        {
+            return 3;
+        }
+        else if (bulletType == "Blue")
+        {
+            return 4;
+        }
+        else if (bulletType == "Purple")
+        {
+            return 5;
         }
         else
         {
@@ -124,11 +185,26 @@ public static class Extension
         else if (index == 1)
         {
             return "Red";
-
         }
         else if (index == 2)
         {
+            return "Green";
+        }
+        else if (index == 3)
+        {
+            return "Yellow";
+        }
+        else if (index == 4)
+        {
+            return "Orange";
+        }
+        else if (index == 5)
+        {
             return "Blue";
+        }
+        else if (index == 6)
+        {
+            return "Purple";
         }
         else
         {

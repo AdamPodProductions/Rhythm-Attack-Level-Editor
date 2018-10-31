@@ -3728,7 +3728,7 @@ GameObject:
   - component: {fileID: 1061591649}
   - component: {fileID: 1061591648}
   m_Layer: 5
-  m_Name: Add
+  m_Name: Draw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3800,7 +3800,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Add
+          m_StringArgument: Draw
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -7293,8 +7293,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionText: {fileID: 61408007}
-  bulletTypeDropdown: {fileID: 0}
-  directionDropdown: {fileID: 0}
+  modeButtons:
+  - {fileID: 1518377013}
+  - {fileID: 1061591649}
+  - {fileID: 1094608444}
+  bulletTypeButtons:
+  - {fileID: 1111537609}
+  - {fileID: 914946214}
+  - {fileID: 837305480}
+  - {fileID: 38624047}
+  - {fileID: 1315116899}
+  - {fileID: 1421845768}
+  directionButtons:
+  - {fileID: 582733164}
+  - {fileID: 671841500}
+  - {fileID: 867729404}
+  - {fileID: 313346415}
+  - {fileID: 550020511}
+  - {fileID: 983300901}
+  - {fileID: 778004883}
+  - {fileID: 1556573857}
+  - {fileID: 2013391106}
   node: {fileID: 0}
 --- !u!1 &1922937222
 GameObject:
