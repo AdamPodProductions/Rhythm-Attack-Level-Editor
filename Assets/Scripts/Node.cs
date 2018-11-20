@@ -45,7 +45,7 @@ public class Node : MonoBehaviour
 
         for (int i = 1; i < bulletOverlays.Length; i++)
         {
-            if (i.DropdownIndexTotype() == bulletStats.type)
+            if (i.DropdownIndexToType() == bulletStats.type)
             {
                 bulletOverlays[i].SetActive(true);
             }

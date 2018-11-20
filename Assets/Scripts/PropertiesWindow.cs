@@ -40,7 +40,7 @@ public class PropertiesWindow : MonoBehaviour
 
             for (int i = 0; i < typeButtons.Length; i++)
             {
-                if (i == bulletStats.type.typeToDropdownIndex() && bulletStats.type != "None")
+                if (i == bulletStats.type.TypeToDropdownIndex() && bulletStats.type != "None")
                 {
                     typeButtons[i].color = Color.white * 0.9f;
                 }
@@ -115,7 +115,7 @@ public class PropertiesWindow : MonoBehaviour
         }
     }
 
-    public void Selecttype(string type)
+    public void SelectType(string type)
     {
         selectedtype = type;
 
@@ -144,7 +144,7 @@ public class PropertiesWindow : MonoBehaviour
 
 public static class Extension
 {
-    public static int typeToDropdownIndex(this string type)
+    public static int TypeToDropdownIndex(this string type)
     {
         if (type == "Red")
         {
@@ -170,13 +170,17 @@ public static class Extension
         {
             return 5;
         }
+        else if (type == "RedLaser")
+        {
+            return 6;
+        }
         else
         {
             return -1;
         }
     }
 
-    public static string DropdownIndexTotype(this int index)
+    public static string DropdownIndexToType(this int index)
     {
         if (index == 0)
         {
@@ -205,6 +209,10 @@ public static class Extension
         else if (index == 6)
         {
             return "Purple";
+        }
+        else if (index == 7)
+        {
+            return "RedLaser";
         }
         else
         {
