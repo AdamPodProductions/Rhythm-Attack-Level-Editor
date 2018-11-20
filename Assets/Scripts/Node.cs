@@ -45,7 +45,7 @@ public class Node : MonoBehaviour
 
         for (int i = 1; i < bulletOverlays.Length; i++)
         {
-            if (i.DropdownIndexToBulletType() == bulletStats.bulletType)
+            if (i.DropdownIndexTotype() == bulletStats.type)
             {
                 bulletOverlays[i].SetActive(true);
             }
@@ -55,7 +55,7 @@ public class Node : MonoBehaviour
             }
         }
 
-        if (bulletStats.bulletType == "None" || bulletStats.direction == Vector2.zero)
+        if (bulletStats.type == "None" || bulletStats.direction == Vector2.zero)
         {
             directionArrow.SetActive(false);
         }

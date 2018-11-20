@@ -10,13 +10,13 @@ public class PropertiesWindow : MonoBehaviour
     public Text positionText;
 
     public Image[] modeButtons;
-    public Image[] bulletTypeButtons;
+    public Image[] typeButtons;
     public Image[] directionButtons;
 
     [HideInInspector] public Node node;
 
     private string mode = "Select";
-    private string selectedBulletType = "None";
+    private string selectedtype = "None";
     private string selectedDirection = "None";
 
     private void OnEnable()
@@ -38,15 +38,15 @@ public class PropertiesWindow : MonoBehaviour
             BulletStats bulletStats = node.bulletStats;
             positionText.text = "(" + bulletStats.position.x + ", " + bulletStats.position.y + ")";
 
-            for (int i = 0; i < bulletTypeButtons.Length; i++)
+            for (int i = 0; i < typeButtons.Length; i++)
             {
-                if (i == bulletStats.bulletType.BulletTypeToDropdownIndex() && bulletStats.bulletType != "None")
+                if (i == bulletStats.type.typeToDropdownIndex() && bulletStats.type != "None")
                 {
-                    bulletTypeButtons[i].color = Color.white * 0.9f;
+                    typeButtons[i].color = Color.white * 0.9f;
                 }
                 else
                 {
-                    bulletTypeButtons[i].color = Color.white;
+                    typeButtons[i].color = Color.white;
                 }
             }
 
@@ -90,7 +90,7 @@ public class PropertiesWindow : MonoBehaviour
     {
         if (node != null)
         {
-            BulletStats bulletStats = new BulletStats(selectedBulletType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+            BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
             node.ApplyProperties(bulletStats);
 
             ShowProperties();
@@ -115,13 +115,13 @@ public class PropertiesWindow : MonoBehaviour
         }
     }
 
-    public void SelectBulletType(string bulletType)
+    public void Selecttype(string type)
     {
-        selectedBulletType = bulletType;
+        selectedtype = type;
 
         if (node != null && mode == "Draw")
         {
-            node.bulletStats.bulletType = bulletType;
+            node.bulletStats.type = type;
             node.ShowPropertiesOnSelf(node.bulletStats);
         }
 
@@ -144,29 +144,29 @@ public class PropertiesWindow : MonoBehaviour
 
 public static class Extension
 {
-    public static int BulletTypeToDropdownIndex(this string bulletType)
+    public static int typeToDropdownIndex(this string type)
     {
-        if (bulletType == "Red")
+        if (type == "Red")
         {
             return 0;
         }
-        else if (bulletType == "Green")
+        else if (type == "Green")
         {
             return 1;
         }
-        else if (bulletType == "Yellow")
+        else if (type == "Yellow")
         {
             return 2;
         }
-        else if (bulletType == "Orange")
+        else if (type == "Orange")
         {
             return 3;
         }
-        else if (bulletType == "Blue")
+        else if (type == "Blue")
         {
             return 4;
         }
-        else if (bulletType == "Purple")
+        else if (type == "Purple")
         {
             return 5;
         }
@@ -176,7 +176,7 @@ public static class Extension
         }
     }
 
-    public static string DropdownIndexToBulletType(this int index)
+    public static string DropdownIndexTotype(this int index)
     {
         if (index == 0)
         {

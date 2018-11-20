@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class BulletStats
 {
-    public string bulletType = "None";
+    public string type = "None";
     public Vector2 position = Vector2.zero;
     public Vector2 direction = Vector2.zero;
 
@@ -14,9 +14,9 @@ public class BulletStats
 
     }
 
-    public BulletStats(string bulletType, Vector2 position, Vector2 direction)
+    public BulletStats(string type, Vector2 position, Vector2 direction)
     {
-        this.bulletType = bulletType;
+        this.type = type;
         this.position = position;
         this.direction = direction;
     }
