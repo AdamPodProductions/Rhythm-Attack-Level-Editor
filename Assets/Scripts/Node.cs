@@ -43,6 +43,11 @@ public class Node : MonoBehaviour
     {
         bulletStats = newProperties;
 
+        if (bulletStats.type.Contains("Battery"))
+        {
+            bulletStats.direction = Vector2.zero;
+        }
+
         for (int i = 1; i < bulletOverlays.Length; i++)
         {
             if (i.DropdownIndexToType() == bulletStats.type)
