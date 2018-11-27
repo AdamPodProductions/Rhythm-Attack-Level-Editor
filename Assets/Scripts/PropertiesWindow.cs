@@ -174,6 +174,50 @@ public static class Extension
         {
             return 6;
         }
+        else if (type == "YellowLaser")
+        {
+            return 7;
+        }
+        else if (type == "OrangeLaser")
+        {
+            return 8;
+        }
+        else if (type == "BlueLaser")
+        {
+            return 9;
+        }
+        else if (type == "GreenLaser")
+        {
+            return 10;
+        }
+        else if (type == "PurpleLaser")
+        {
+            return 11;
+        }
+        else if (type == "RedBattery")
+        {
+            return 12;
+        }
+        else if (type == "YellowBattery")
+        {
+            return 13;
+        }
+        else if (type == "OrangeBattery")
+        {
+            return 14;
+        }
+        else if (type == "BlueBattery")
+        {
+            return 15;
+        }
+        else if (type == "GreenBattery")
+        {
+            return 16;
+        }
+        else if (type == "PurpleBattery")
+        {
+            return 17;
+        }
         else
         {
             return -1;
@@ -213,6 +257,50 @@ public static class Extension
         else if (index == 7)
         {
             return "RedLaser";
+        }
+        else if (index == 8)
+        {
+            return "YellowLaser";
+        }
+        else if (index == 9)
+        {
+            return "OrangeLaser";
+        }
+        else if (index == 10)
+        {
+            return "BlueLaser";
+        }
+        else if (index == 11)
+        {
+            return "GreenLaser";
+        }
+        else if (index == 12)
+        {
+            return "PurpleLaser";
+        }
+        else if (index == 13)
+        {
+            return "RedBattery";
+        }
+        else if (index == 14)
+        {
+            return "YellowBattery";
+        }
+        else if (index == 15)
+        {
+            return "OrangeBattery";
+        }
+        else if (index == 16)
+        {
+            return "BlueBattery";
+        }
+        else if (index == 17)
+        {
+            return "GreenBattery";
+        }
+        else if (index == 18)
+        {
+            return "PurpleBattery";
         }
         else
         {
