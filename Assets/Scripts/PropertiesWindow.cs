@@ -90,10 +90,23 @@ public class PropertiesWindow : MonoBehaviour
     {
         if (node != null)
         {
-            BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
-            node.ApplyProperties(bulletStats);
+            if (node.bulletStats.type.Contains("Battery"))
+            {
+                if (LevelGenerator.instance.currentFrameIndex == 0)
+                {
+                    BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+                    node.ApplyProperties(bulletStats);
 
-            ShowProperties();
+                    ShowProperties();
+                }
+            }
+            else
+            {
+                BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+                node.ApplyProperties(bulletStats);
+
+                ShowProperties();
+            }
         }
     }
 
@@ -121,8 +134,21 @@ public class PropertiesWindow : MonoBehaviour
 
         if (node != null && mode == "Draw")
         {
-            node.bulletStats.type = type;
-            node.ShowPropertiesOnSelf(node.bulletStats);
+            if (node.bulletStats.type.Contains("Battery"))
+            {
+                if (LevelGenerator.instance.currentFrameIndex == 0)
+                {
+                    node.bulletStats.type = type;
+                    //node.ShowPropertiesOnSelf(node.bulletStats);
+                    //node.ApplyProperties(node.bulletStats);
+                    SelectNode(node);
+                }
+            }
+            else
+            {
+                node.bulletStats.type = type;
+                SelectNode(node);
+            }
         }
 
         ShowProperties();

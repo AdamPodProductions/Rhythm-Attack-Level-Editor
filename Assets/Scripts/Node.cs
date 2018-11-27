@@ -29,6 +29,12 @@ public class Node : MonoBehaviour
 
     public void ApplyProperties(BulletStats newProperties)
     {
+        /*if (bulletStats.type.Contains("Battery"))
+        {
+            print("hi");
+            return;
+        }*/
+
         if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
         {
             level.RemoveBulletFromCurrentFrame(this, bulletStats);

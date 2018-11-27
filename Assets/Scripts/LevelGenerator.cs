@@ -44,7 +44,8 @@ public class LevelGenerator : MonoBehaviour
             song = www.GetAudioClip();
 
             level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), song, int.Parse(bpmText.text), int.Parse(framesText.text));
-        } else
+        }
+        else
         {
             level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), int.Parse(framesText.text));
         }
@@ -60,7 +61,10 @@ public class LevelGenerator : MonoBehaviour
         {
             foreach (Node node in nodes)
             {
-                node.ClearProperties(false);
+                if (!node.bulletStats.type.Contains("Battery"))
+                {
+                    node.ClearProperties(false);
+                }
             }
 
             currentFrameIndex = newFrameIndex;
