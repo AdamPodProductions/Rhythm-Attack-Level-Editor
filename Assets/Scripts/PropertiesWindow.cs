@@ -139,8 +139,6 @@ public class PropertiesWindow : MonoBehaviour
                 if (LevelGenerator.instance.currentFrameIndex == 0)
                 {
                     node.bulletStats.type = type;
-                    //node.ShowPropertiesOnSelf(node.bulletStats);
-                    //node.ApplyProperties(node.bulletStats);
                     SelectNode(node);
                 }
             }
