@@ -11,6 +11,8 @@ public class FrameWindow : MonoBehaviour
     public Text frameNumberText;
     public InputField saveInput;
 
+    public Text saveText;
+
     private LevelGenerator levelGenerator;
 
     public void Start()
@@ -29,7 +31,18 @@ public class FrameWindow : MonoBehaviour
 
     public void Save()
     {
-        Level level = levelGenerator.level;
-        JSON.SaveLevel(level, saveInput.text);
+        try
+        {
+            Level level = levelGenerator.level;
+            JSON.SaveLevel(level, saveInput.text);
+
+            saveText.text = "Saved successfully";
+            saveText.color = new Color(0, 0.75f, 0);
+        }
+        catch
+        {
+            saveText.text = "Please try again";
+            saveText.color = Color.red;
+        }
     }
 }
