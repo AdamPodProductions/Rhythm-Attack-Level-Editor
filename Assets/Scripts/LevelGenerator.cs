@@ -21,7 +21,6 @@ public class LevelGenerator : MonoBehaviour
     public Node[] nodes;
 
     private GridGenerator gridGenerator;
-    private PropertiesWindow propertiesWindow;
 
     private void OnEnable()
     {
@@ -31,7 +30,6 @@ public class LevelGenerator : MonoBehaviour
     private void Start()
     {
         gridGenerator = FindObjectOfType<GridGenerator>();
-        propertiesWindow = PropertiesWindow.instance;
     }
 
     public void CreateLevel()

@@ -29,12 +29,6 @@ public class Node : MonoBehaviour
 
     public void ApplyProperties(BulletStats newProperties)
     {
-        /*if (bulletStats.type.Contains("Battery"))
-        {
-            print("hi");
-            return;
-        }*/
-
         if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
         {
             level.RemoveBulletFromCurrentFrame(this, bulletStats);
@@ -81,17 +75,12 @@ public class Node : MonoBehaviour
 
     public void ClearProperties(bool updateFrame)
     {
-        if (level.GetCurrentFrame().bullets.Contains(new BulletStats()) && updateFrame)
+        if (updateFrame)
         {
             level.RemoveBulletFromCurrentFrame(this, bulletStats);
         }
 
         ShowPropertiesOnSelf(BulletStats.BlankBulletStats(bulletStats.position));
-
-        if (updateFrame)
-        {
-            level.AddBulletToCurrentFrame(this, bulletStats);
-        }
     }
 
     public void ToggleSelectOverlay(bool toggle)

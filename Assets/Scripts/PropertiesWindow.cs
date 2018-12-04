@@ -16,7 +16,7 @@ public class PropertiesWindow : MonoBehaviour
     [HideInInspector] public Node node;
 
     private string mode = "Select";
-    private string selectedtype = "None";
+    private string selectedType = "None";
     private string selectedDirection = "None";
 
     private void OnEnable()
@@ -88,13 +88,13 @@ public class PropertiesWindow : MonoBehaviour
 
     public void ApplyProperties()
     {
-        if (node != null)
+        if (node != null && selectedType != "None")
         {
             if (node.bulletStats.type.Contains("Battery"))
             {
                 if (LevelGenerator.instance.currentFrameIndex == 0)
                 {
-                    BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+                    BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
                     node.ApplyProperties(bulletStats);
 
                     ShowProperties();
@@ -102,7 +102,7 @@ public class PropertiesWindow : MonoBehaviour
             }
             else
             {
-                BulletStats bulletStats = new BulletStats(selectedtype, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+                BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
                 node.ApplyProperties(bulletStats);
 
                 ShowProperties();
@@ -130,7 +130,7 @@ public class PropertiesWindow : MonoBehaviour
 
     public void SelectType(string type)
     {
-        selectedtype = type;
+        selectedType = type;
 
         if (node != null && mode == "Draw")
         {
