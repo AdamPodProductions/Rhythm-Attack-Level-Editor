@@ -17,6 +17,7 @@ public class LevelGenerator : MonoBehaviour
     public InputField pathText;
     public Text bpmText;
     public Text framesText;
+    public InputField pathInput;
 
     public Node[] nodes;
 
@@ -52,6 +53,28 @@ public class LevelGenerator : MonoBehaviour
         gridGenerator.AddBatteries();
     }
 
+    public void LoadLevel()
+    {
+        level = JSON.LoadLevel(pathInput.text);
+        nodes = gridGenerator.GenerateGrid(level.size);
+        ChangeFrame(0);
+
+        FrameWindow.instance.levelTitleText.text = level.name;
+    }
+
+    public Node GetNodeAtPosition(Vector2 position)
+    {
+        foreach (Node node in nodes)
+        {
+            if (node.bulletStats.position == position)
+            {
+                return node;
+            }
+        }
+
+        return null;
+    }
+
     public void ChangeFrame(int newFrameIndex)
     {
         if (newFrameIndex >= 0 && newFrameIndex < level.frames.Length)
@@ -68,7 +91,17 @@ public class LevelGenerator : MonoBehaviour
                 for (int i = 0; i < level.frames[currentFrameIndex].bullets.Count; i++)
                 {
                     Frame currentFrame = level.frames[currentFrameIndex];
-                    currentFrame.nodes[i].ShowPropertiesOnSelf(currentFrame.bullets[i]);
+
+                    try
+                    {
+                        currentFrame.nodes[i].ShowPropertiesOnSelf(currentFrame.bullets[i]);
+                    }
+                    catch
+                    {
+                        Node node = GetNodeAtPosition(currentFrame.bullets[i].position);
+                        node.ShowPropertiesOnSelf(currentFrame.bullets[i]);
+                        currentFrame.nodes.Add(node);
+                    }
                 }
             }
         }

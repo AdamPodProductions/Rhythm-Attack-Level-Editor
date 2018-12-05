@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class JSON : MonoBehaviour
+public static class JSON
 {
     public static void SaveLevel(Level level, string path)
     {
@@ -11,5 +11,11 @@ public class JSON : MonoBehaviour
         string json = JsonUtility.ToJson(level);
 
         File.WriteAllText(fullPath, json);
+    }
+
+    public static Level LoadLevel(string path)
+    {
+        string json = File.ReadAllText(path);
+        return JsonUtility.FromJson<Level>(json);
     }
 }

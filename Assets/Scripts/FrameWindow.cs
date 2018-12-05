@@ -15,7 +15,7 @@ public class FrameWindow : MonoBehaviour
 
     private LevelGenerator levelGenerator;
 
-    public void Start()
+    public void OnEnable()
     {
         instance = this;
         levelGenerator = LevelGenerator.instance;
