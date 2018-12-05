@@ -12,11 +12,11 @@ public class Node : MonoBehaviour
 
     public bool editable = true;
 
-    private Level level;
+    public LevelGenerator levelGenerator;
 
-    private void Start()
+    private void OnEnable()
     {
-        level = LevelGenerator.instance.level;
+        levelGenerator = LevelGenerator.instance;
     }
 
     private void OnMouseDown()
@@ -36,14 +36,9 @@ public class Node : MonoBehaviour
     {
         if (editable)
         {
-            if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
-            {
-                level.RemoveBulletFromCurrentFrame(this, bulletStats);
-            }
-
+            levelGenerator.level.RemoveBulletFromCurrentFrame(this, bulletStats);
             ShowPropertiesOnSelf(newProperties);
-
-            level.AddBulletToCurrentFrame(this, newProperties);
+            levelGenerator.level.AddBulletToCurrentFrame(this, newProperties);
         }
     }
 
@@ -87,7 +82,7 @@ public class Node : MonoBehaviour
         {
             if (updateFrame)
             {
-                level.RemoveBulletFromCurrentFrame(this, bulletStats);
+                levelGenerator.level.RemoveBulletFromCurrentFrame(this, bulletStats);
             }
 
             ShowPropertiesOnSelf(BulletStats.BlankBulletStats(bulletStats.position));

@@ -48,9 +48,8 @@ public class LevelGenerator : MonoBehaviour
             level = new Level(nameText.text, new Vector2(int.Parse(sizeXText.text), int.Parse(sizeYText.text)), int.Parse(framesText.text));
         }
 
-        gridGenerator.GenerateGrid(level.size);
-
-        nodes = FindObjectsOfType<Node>();
+        nodes = gridGenerator.GenerateGrid(level.size);
+        gridGenerator.AddBatteries();
     }
 
     public void ChangeFrame(int newFrameIndex)
