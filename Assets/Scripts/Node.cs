@@ -10,6 +10,8 @@ public class Node : MonoBehaviour
     public GameObject directionArrow;
     public GameObject[] bulletOverlays;
 
+    public bool editable = true;
+
     private Level level;
 
     private void Start()
@@ -24,19 +26,25 @@ public class Node : MonoBehaviour
 
     private void ShowPropertiesOnWindow()
     {
-        PropertiesWindow.instance.SelectNode(this);
+        if (editable)
+        {
+            PropertiesWindow.instance.SelectNode(this);
+        }
     }
 
     public void ApplyProperties(BulletStats newProperties)
     {
-        if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
+        if (editable)
         {
-            level.RemoveBulletFromCurrentFrame(this, bulletStats);
+            if (level.GetCurrentFrame().bullets.Contains(new BulletStats()))
+            {
+                level.RemoveBulletFromCurrentFrame(this, bulletStats);
+            }
+
+            ShowPropertiesOnSelf(newProperties);
+
+            level.AddBulletToCurrentFrame(this, newProperties);
         }
-
-        ShowPropertiesOnSelf(newProperties);
-
-        level.AddBulletToCurrentFrame(this, newProperties);
     }
 
     public void ShowPropertiesOnSelf(BulletStats newProperties)
@@ -75,16 +83,39 @@ public class Node : MonoBehaviour
 
     public void ClearProperties(bool updateFrame)
     {
-        if (updateFrame)
+        if (editable)
         {
-            level.RemoveBulletFromCurrentFrame(this, bulletStats);
-        }
+            if (updateFrame)
+            {
+                level.RemoveBulletFromCurrentFrame(this, bulletStats);
+            }
 
-        ShowPropertiesOnSelf(BulletStats.BlankBulletStats(bulletStats.position));
+            ShowPropertiesOnSelf(BulletStats.BlankBulletStats(bulletStats.position));
+        }
     }
 
     public void ToggleSelectOverlay(bool toggle)
     {
         selectOverlay.SetActive(toggle);
+    }
+
+    public void ChangeFrame()
+    {
+        if (bulletStats.type.Contains("Battery"))
+        {
+            if (LevelGenerator.instance.currentFrameIndex == 0)
+            {
+                editable = true;
+            }
+            else
+            {
+                editable = false;
+            }
+        }
+
+        if (editable)
+        {
+            ClearProperties(false);
+        }
     }
 }

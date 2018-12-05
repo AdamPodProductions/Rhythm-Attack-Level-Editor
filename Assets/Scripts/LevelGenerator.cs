@@ -57,15 +57,12 @@ public class LevelGenerator : MonoBehaviour
     {
         if (newFrameIndex >= 0 && newFrameIndex < level.frames.Length)
         {
+            currentFrameIndex = newFrameIndex;
+
             foreach (Node node in nodes)
             {
-                if (!node.bulletStats.type.Contains("Battery"))
-                {
-                    node.ClearProperties(false);
-                }
+                node.ChangeFrame();
             }
-
-            currentFrameIndex = newFrameIndex;
 
             if (level.GetCurrentFrame().bullets.Count > 0)
             {

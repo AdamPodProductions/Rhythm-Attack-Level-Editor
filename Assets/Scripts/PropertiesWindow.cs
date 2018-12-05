@@ -90,23 +90,10 @@ public class PropertiesWindow : MonoBehaviour
     {
         if (node != null && selectedType != "None")
         {
-            if (node.bulletStats.type.Contains("Battery"))
-            {
-                if (LevelGenerator.instance.currentFrameIndex == 0)
-                {
-                    BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
-                    node.ApplyProperties(bulletStats);
+            BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+            node.ApplyProperties(bulletStats);
 
-                    ShowProperties();
-                }
-            }
-            else
-            {
-                BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
-                node.ApplyProperties(bulletStats);
-
-                ShowProperties();
-            }
+            ShowProperties();
         }
     }
 
