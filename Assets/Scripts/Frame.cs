@@ -17,11 +17,37 @@ public class Frame
     {
         this.bullets = bullets;
         this.nodes = nodes;
+
+        this.bullets = new List<BulletStats>();
+        this.nodes = new List<Node>();
+
+        foreach (BulletStats bullet in bullets)
+        {
+            this.bullets.Add(bullet);
+        }
+
+        foreach (Node node in nodes)
+        {
+            this.nodes.Add(node);
+        }
     }
 
     public Frame(Frame frame)
     {
         bullets = frame.bullets;
         nodes = frame.nodes;
+
+        bullets = new List<BulletStats>();
+        nodes = new List<Node>();
+
+        foreach (BulletStats bullet in frame.bullets)
+        {
+            bullets.Add(bullet);
+        }
+
+        foreach (Node node in frame.nodes)
+        {
+            nodes.Add(node);
+        }
     }
 }
