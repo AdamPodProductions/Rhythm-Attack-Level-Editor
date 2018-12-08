@@ -12,4 +12,16 @@ public class Frame
     {
 
     }
+
+    public Frame(List<BulletStats> bullets, List<Node> nodes)
+    {
+        this.bullets = bullets;
+        this.nodes = nodes;
+    }
+
+    public Frame(Frame frame)
+    {
+        bullets = frame.bullets;
+        nodes = frame.nodes;
+    }
 }

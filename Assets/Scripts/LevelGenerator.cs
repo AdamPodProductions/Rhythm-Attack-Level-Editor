@@ -51,6 +51,7 @@ public class LevelGenerator : MonoBehaviour
 
         nodes = gridGenerator.GenerateGrid(level.size);
         gridGenerator.AddBatteries();
+        FrameWindow.instance.Setup();
     }
 
     public void LoadLevel()
@@ -59,7 +60,7 @@ public class LevelGenerator : MonoBehaviour
         nodes = gridGenerator.GenerateGrid(level.size);
         ChangeFrame(0);
 
-        FrameWindow.instance.levelTitleText.text = level.name;
+        FrameWindow.instance.Setup();
     }
 
     public Node GetNodeAtPosition(Vector2 position)
@@ -117,6 +118,15 @@ public class LevelGenerator : MonoBehaviour
     public void FrameDown()
     {
         ChangeFrame(currentFrameIndex - 1);
+    }
+
+    public void DuplicateFrame()
+    {
+        if (currentFrameIndex < level.frames.Length - 1)
+        {
+            level.frames[currentFrameIndex + 1] = new Frame(level.frames[currentFrameIndex]);
+            FrameUp();
+        }
     }
 }
 
