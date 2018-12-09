@@ -122,7 +122,11 @@ public class LevelGenerator : MonoBehaviour
 
     public void AddFrame()
     {
+        level.frames.Insert(currentFrameIndex + 1, new Frame());
+        level.amountOfFrames++;
+        ChangeFrame(currentFrameIndex + 1);
 
+        FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
     }
 
     public void RemoveFrame()

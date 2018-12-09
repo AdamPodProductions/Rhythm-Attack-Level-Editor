@@ -5149,7 +5149,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 133646554}
-        m_MethodName: FrameUp
+        m_MethodName: AddFrame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
