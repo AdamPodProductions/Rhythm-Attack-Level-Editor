@@ -23,16 +23,25 @@ public class FrameWindow : MonoBehaviour
 
     public void Setup()
     {
-        levelTitleText.text = LevelGenerator.instance.level.name;
-        frameNumberText.text = "Frame #" + (levelGenerator.currentFrameIndex + 1) + "/" + levelGenerator.level.amountOfFrames;
+        TitleSetup(levelGenerator.level.name);
+        FrameSetup(0, levelGenerator.level.amountOfFrames);
+    }
+
+    public void TitleSetup(string name)
+    {
+        levelTitleText.text = name;
+    }
+
+    public void FrameSetup(int currentFrame, int totalFrames)
+    {
+        frameNumberText.text = "Frame #" + (currentFrame + 1) + "/" + totalFrames;
     }
 
     public void Save()
     {
         try
         {
-            Level level = levelGenerator.level;
-            JSON.SaveLevel(level, saveInput.text);
+            JSON.SaveLevel(levelGenerator.level, saveInput.text);
 
             saveText.text = "Saved successfully";
             saveText.color = new Color(0, 0.75f, 0);

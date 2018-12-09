@@ -78,7 +78,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void ChangeFrame(int newFrameIndex)
     {
-        if (newFrameIndex >= 0 && newFrameIndex < level.frames.Length)
+        if (newFrameIndex >= 0 && newFrameIndex < level.frames.Count)
         {
             currentFrameIndex = newFrameIndex;
 
@@ -107,7 +107,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        FrameWindow.instance.frameNumberText.text = "Frame #" + (currentFrameIndex + 1) + "/" + level.frames.Length;
+        FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
     }
 
     public void FrameUp()
@@ -120,9 +120,30 @@ public class LevelGenerator : MonoBehaviour
         ChangeFrame(currentFrameIndex - 1);
     }
 
+    public void AddFrame()
+    {
+
+    }
+
+    public void RemoveFrame()
+    {
+        if (level.amountOfFrames > 1)
+        {
+            level.frames.RemoveAt(currentFrameIndex);
+            level.amountOfFrames--;
+
+            if (currentFrameIndex >= level.amountOfFrames)
+            {
+                ChangeFrame(level.amountOfFrames - 1);
+            }
+
+            FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
+        }
+    }
+
     public void DuplicateFrame()
     {
-        if (currentFrameIndex < level.frames.Length - 1)
+        if (currentFrameIndex < level.frames.Count - 1)
         {
             level.frames[currentFrameIndex + 1] = new Frame(level.frames[currentFrameIndex]);
             FrameUp();
@@ -139,7 +160,7 @@ public class Level
     public int bpm;
     public int amountOfFrames;
 
-    public Frame[] frames = new Frame[0];
+    public List<Frame> frames = new List<Frame>();
 
     public Level()
     {
@@ -154,10 +175,10 @@ public class Level
         this.bpm = bpm;
         this.amountOfFrames = amountOfFrames;
 
-        frames = new Frame[amountOfFrames];
-        for (int i = 0; i < frames.Length; i++)
+        frames = new List<Frame>();
+        for (int i = 0; i < amountOfFrames; i++)
         {
-            frames[i] = new Frame();
+            frames.Add(new Frame());
         }
     }
 
@@ -167,10 +188,10 @@ public class Level
         this.size = size;
         this.amountOfFrames = amountOfFrames;
 
-        frames = new Frame[amountOfFrames];
-        for (int i = 0; i < frames.Length; i++)
+        frames = new List<Frame>();
+        for (int i = 0; i < amountOfFrames; i++)
         {
-            frames[i] = new Frame();
+            frames.Add(new Frame());
         }
     }
 
