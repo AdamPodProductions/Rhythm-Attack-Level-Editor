@@ -9,6 +9,10 @@ public class PropertiesWindow : MonoBehaviour
 
     public Text positionText;
 
+    public GameObject specialtyNumber;
+    public Text specialtyNumberTitle;
+    public InputField specialtyNumberInput;
+
     public Image[] modeButtons;
     public Image[] typeButtons;
     public Image[] directionButtons;
@@ -61,6 +65,49 @@ public class PropertiesWindow : MonoBehaviour
                     directionButtons[i].color = Color.white;
                 }
             }
+
+            if (bulletStats.type == "Yellow" || bulletStats.type == "Orange" || bulletStats.type == "Purple")
+            {
+                specialtyNumberTitle.text = "Beats Before Change";
+                ShowSpecialtyNumber();
+            }
+            else if (bulletStats.type == "Green")
+            {
+                specialtyNumberTitle.text = "Beats Before Die";
+                ShowSpecialtyNumber();
+            }
+            else if (bulletStats.type == "Blue")
+            {
+                specialtyNumberTitle.text = "Beats Before Split";
+                ShowSpecialtyNumber();
+            }
+            else
+            {
+                HideSpecialityNumber();
+            }
+        }
+    }
+
+    private void ShowSpecialtyNumber()
+    {
+        specialtyNumber.SetActive(true);
+        specialtyNumberInput.text = node.bulletStats.specialtyNumber.ToString();
+    }
+
+    private void HideSpecialityNumber()
+    {
+        specialtyNumber.SetActive(false);
+    }
+
+    public void SetSpecialtyNumber()
+    {
+        try
+        {
+            node.bulletStats.specialtyNumber = float.Parse(specialtyNumberInput.text);
+        }
+        catch
+        {
+            return;
         }
     }
 
@@ -90,7 +137,7 @@ public class PropertiesWindow : MonoBehaviour
     {
         if (node != null && selectedType != "None")
         {
-            BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector());
+            BulletStats bulletStats = new BulletStats(selectedType, node.bulletStats.position, selectedDirection.DirectionStringToVector(), node.bulletStats.specialtyNumber);
             node.ApplyProperties(bulletStats);
 
             ShowProperties();
