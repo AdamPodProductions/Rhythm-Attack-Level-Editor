@@ -133,14 +133,14 @@ public class LevelGenerator : MonoBehaviour
 
     public void RemoveFrame()
     {
-        if (level.amountOfFrames > 1)
+        if (level.amountOfFrames > 1 && currentFrameIndex != 0)
         {
             level.frames.RemoveAt(currentFrameIndex);
             level.amountOfFrames--;
 
-            if (currentFrameIndex >= level.amountOfFrames)
+            if (currentFrameIndex < level.amountOfFrames)
             {
-                ChangeFrame(level.amountOfFrames - 1);
+                ChangeFrame(currentFrameIndex);
             }
 
             FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
