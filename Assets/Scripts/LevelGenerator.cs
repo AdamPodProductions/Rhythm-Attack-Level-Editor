@@ -52,6 +52,7 @@ public class LevelGenerator : MonoBehaviour
         nodes = gridGenerator.GenerateGrid(level.size);
         gridGenerator.AddBatteries();
         FrameWindow.instance.Setup();
+        ShortcutManager.instance.gameObject.SetActive(true);
     }
 
     public void LoadLevel()
@@ -61,6 +62,7 @@ public class LevelGenerator : MonoBehaviour
         ChangeFrame(0);
 
         FrameWindow.instance.Setup();
+        ShortcutManager.instance.gameObject.SetActive(true);
     }
 
     public Node GetNodeAtPosition(Vector2 position)

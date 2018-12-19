@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ShortcutManager : MonoBehaviour
 {
+    public static ShortcutManager instance;
+
     private LevelGenerator levelGenerator;
     private PropertiesWindow propertiesWindow;
 
     private void Start()
     {
+        instance = this;
+
         levelGenerator = LevelGenerator.instance;
         propertiesWindow = PropertiesWindow.instance;
+
+        gameObject.SetActive(false);
     }
 
     private void Update()
@@ -48,47 +54,38 @@ public class ShortcutManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S))
         {
             propertiesWindow.SetDirection("None");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             propertiesWindow.SetDirection("Up-Left");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             propertiesWindow.SetDirection("Up");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             propertiesWindow.SetDirection("Up-Right");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             propertiesWindow.SetDirection("Right");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
             propertiesWindow.SetDirection("Down-Right");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             propertiesWindow.SetDirection("Down");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             propertiesWindow.SetDirection("Down-Left");
-            propertiesWindow.ApplyProperties();
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
             propertiesWindow.SetDirection("Left");
-            propertiesWindow.ApplyProperties();
         }
     }
 }
