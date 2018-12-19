@@ -142,6 +142,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 ChangeFrame(currentFrameIndex);
             }
+            else
+            {
+                currentFrameIndex--;
+                ChangeFrame(currentFrameIndex);
+            }
 
             FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
         }
