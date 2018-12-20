@@ -9806,6 +9806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf61e8979163b9439aab2843052dc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveField: {fileID: 1766902762}
+  specialtyNumberField: {fileID: 1030562096}
 --- !u!1 &1596823124
 GameObject:
   m_ObjectHideFlags: 0
