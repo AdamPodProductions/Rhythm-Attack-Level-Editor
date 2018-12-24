@@ -198,6 +198,19 @@ public class PropertiesWindow : MonoBehaviour
 
         ShowProperties();
     }
+
+    public void SetDirection(Vector2 direction)
+    {
+        selectedDirection = direction.DirectionVectorToString();
+
+        if (node != null && mode == "Draw")
+        {
+            node.bulletStats.direction = direction;
+            node.ShowPropertiesOnSelf(node.bulletStats);
+        }
+
+        ShowProperties();
+    }
 }
 
 public static class Extension
@@ -482,7 +495,7 @@ public static class Extension
         }
         else if (directionString == "Down-Left")
         {
-            return Vector2.one * -1;
+            return -Vector2.one;
         }
         else if (directionString == "Left")
         {
@@ -495,6 +508,50 @@ public static class Extension
         else
         {
             return Vector2.positiveInfinity;
+        }
+    }
+
+    public static string DirectionVectorToString(this Vector2 direction)
+    {
+        if (direction == Vector2.zero)
+        {
+            return "None";
+        }
+        else if (direction == Vector2.up)
+        {
+            return "Up";
+        }
+        else if (direction == Vector2.one)
+        {
+            return "Up-Right";
+        }
+        else if (direction == Vector2.right)
+        {
+            return "Right";
+        }
+        else if (direction == new Vector2(1, -1))
+        {
+            return "Down-Right";
+        }
+        else if (direction == Vector2.down)
+        {
+            return "Down";
+        }
+        else if (direction == -Vector2.one)
+        {
+            return "Down-Left";
+        }
+        else if (direction == Vector2.left)
+        {
+            return "Left";
+        }
+        else if (direction == new Vector2(-1, 1))
+        {
+            return "Up-Left";
+        }
+        else
+        {
+            return "None";
         }
     }
 }

@@ -59,44 +59,100 @@ public class ShortcutManager : MonoBehaviour
                 propertiesWindow.SelectMode("Remove");
             }
 
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                propertiesWindow.SetDirection("None");
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                propertiesWindow.SetDirection("Up-Left");
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                propertiesWindow.SetDirection("Up");
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                propertiesWindow.SetDirection("Up-Right");
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                propertiesWindow.SetDirection("Right");
-            }
-            else if (Input.GetKeyDown(KeyCode.C))
-            {
-                propertiesWindow.SetDirection("Down-Right");
-            }
             else if (Input.GetKeyDown(KeyCode.X))
             {
-                propertiesWindow.SetDirection("Down");
+                RotateClockwise();
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                propertiesWindow.SetDirection("Down-Left");
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                propertiesWindow.SetDirection("Left");
+                RotateCounterClockwise();
             }
         }
 
         canActivate = saveField.isFocused == false && specialtyNumberField.isFocused == false;
+    }
+
+    private void RotateClockwise()
+    {
+        BulletStats bulletStats = propertiesWindow.node.bulletStats;
+        Vector2 newDirection = Vector2.zero;
+
+        if (bulletStats.direction == Vector2.zero || bulletStats.direction == new Vector2(-1, 1))
+        {
+            newDirection = Vector2.up;
+        }
+        else if (bulletStats.direction == Vector2.up)
+        {
+            newDirection = Vector2.one;
+        }
+        else if (bulletStats.direction == Vector2.one)
+        {
+            newDirection = Vector2.right;
+        }
+        else if (bulletStats.direction == Vector2.right)
+        {
+            newDirection = new Vector2(1, -1);
+        }
+        else if (bulletStats.direction == new Vector2(1, -1))
+        {
+            newDirection = Vector2.down;
+        }
+        else if (bulletStats.direction == Vector2.down)
+        {
+            newDirection = -Vector2.one;
+        }
+        else if (bulletStats.direction == -Vector2.one)
+        {
+            newDirection = Vector2.left;
+        }
+        else if (bulletStats.direction == Vector2.left)
+        {
+            newDirection = new Vector2(-1, 1);
+        }
+
+        propertiesWindow.node.bulletStats.direction = newDirection;
+        propertiesWindow.SetDirection(newDirection);
+    }
+
+    private void RotateCounterClockwise()
+    {
+        BulletStats bulletStats = propertiesWindow.node.bulletStats;
+        Vector2 newDirection = Vector2.zero;
+
+        if (bulletStats.direction == Vector2.zero || bulletStats.direction == Vector2.one)
+        {
+            newDirection = Vector2.up;
+        }
+        else if (bulletStats.direction == Vector2.up)
+        {
+            newDirection = new Vector2(-1, 1);
+        }
+        else if (bulletStats.direction == new Vector2(-1, 1))
+        {
+            newDirection = Vector2.left;
+        }
+        else if (bulletStats.direction == Vector2.right)
+        {
+            newDirection = Vector2.one;
+        }
+        else if (bulletStats.direction == new Vector2(1, -1))
+        {
+            newDirection = Vector2.right;
+        }
+        else if (bulletStats.direction == Vector2.down)
+        {
+            newDirection = new Vector2(1, -1);
+        }
+        else if (bulletStats.direction == -Vector2.one)
+        {
+            newDirection = Vector2.down;
+        }
+        else if (bulletStats.direction == Vector2.left)
+        {
+            newDirection = -Vector2.one;
+        }
+
+        propertiesWindow.node.bulletStats.direction = newDirection;
+        propertiesWindow.SetDirection(newDirection);
     }
 }
