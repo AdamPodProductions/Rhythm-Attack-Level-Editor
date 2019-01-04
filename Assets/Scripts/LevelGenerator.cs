@@ -21,6 +21,10 @@ public class LevelGenerator : MonoBehaviour
 
     public Node[] nodes;
 
+    public GameObject propertiesWindow;
+    public GameObject frameWindow;
+    public GameObject createFail;
+
     private GridGenerator gridGenerator;
 
     private void OnEnable()
@@ -35,6 +39,9 @@ public class LevelGenerator : MonoBehaviour
 
     public void CreateLevel()
     {
+        propertiesWindow.SetActive(true);
+        frameWindow.SetActive(true);
+
         AudioClip song = null;
 
         if (customSongToggle.isOn)
@@ -50,6 +57,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         nodes = gridGenerator.GenerateGrid(level.size);
+
         gridGenerator.AddBatteries();
         FrameWindow.instance.Setup();
         ShortcutManager.instance.gameObject.SetActive(true);
@@ -57,6 +65,9 @@ public class LevelGenerator : MonoBehaviour
 
     public void LoadLevel()
     {
+        propertiesWindow.SetActive(true);
+        frameWindow.SetActive(true);
+
         level = JSON.LoadLevel(pathInput.text);
         nodes = gridGenerator.GenerateGrid(level.size);
         ChangeFrame(0);
