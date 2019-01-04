@@ -68,7 +68,18 @@ public class LevelGenerator : MonoBehaviour
         propertiesWindow.SetActive(true);
         frameWindow.SetActive(true);
 
-        level = JSON.LoadLevel(pathInput.text);
+        string path = pathInput.text;
+        if (!path.Contains(".json"))
+        {
+            if (path.Contains("."))
+            {
+                path = path.Substring(0, path.LastIndexOf("."));
+            }
+
+            path += ".json";
+        }
+
+        level = JSON.LoadLevel(path);
         nodes = gridGenerator.GenerateGrid(level.size);
         ChangeFrame(0);
 
