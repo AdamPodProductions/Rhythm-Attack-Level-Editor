@@ -110,6 +110,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         FrameWindow.instance.FrameSetup(currentFrameIndex, level.amountOfFrames);
+        PropertiesWindow.instance.ShowProperties();
     }
 
     public void FrameUp()

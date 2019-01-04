@@ -33,7 +33,18 @@ public class PropertiesWindow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void ShowProperties()
+    private void ShowSpecialtyNumber()
+    {
+        specialtyNumber.SetActive(true);
+        specialtyNumberInput.text = node.bulletStats.specialtyNumber.ToString();
+    }
+
+    private void HideSpecialityNumber()
+    {
+        specialtyNumber.SetActive(false);
+    }
+
+    public void ShowProperties()
     {
         gameObject.SetActive(true);
 
@@ -86,17 +97,6 @@ public class PropertiesWindow : MonoBehaviour
                 HideSpecialityNumber();
             }
         }
-    }
-
-    private void ShowSpecialtyNumber()
-    {
-        specialtyNumber.SetActive(true);
-        specialtyNumberInput.text = node.bulletStats.specialtyNumber.ToString();
-    }
-
-    private void HideSpecialityNumber()
-    {
-        specialtyNumber.SetActive(false);
     }
 
     public void SetSpecialtyNumber()
