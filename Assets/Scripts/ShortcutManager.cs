@@ -29,11 +29,11 @@ public class ShortcutManager : MonoBehaviour
     {
         if (canActivate)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 levelGenerator.FrameUp();
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.R))
             {
                 levelGenerator.FrameDown();
             }
