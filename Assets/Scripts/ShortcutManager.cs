@@ -95,6 +95,11 @@ public class ShortcutManager : MonoBehaviour
             {
                 propertiesWindow.SetDirection("Left");
             }
+
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                FrameWindow.instance.Save();
+            }
         }
 
         canActivate = saveField.isFocused == false && specialtyNumberField.isFocused == false;
